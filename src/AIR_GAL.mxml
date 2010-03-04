@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" showStatusBar="false" click="windowedapplication1_clickHandler(event)" creationComplete="windowedapplication1_creationCompleteHandler(event)" initialize="windowedapplication1_initializeHandler(event)" applicationComplete="windowedapplication1_applicationCompleteHandler(event)" preinitialize="windowedapplication1_preinitializeHandler(event)">
+	<fx:Style source="font.css"/>
+	<fx:Script>
+		<![CDATA[
+			import gal.UI.control.TextBox;
+			import mx.core.WindowedApplication;
+			import gal.UI.management.UImanagement;
+			import mx.controls.Text;
+			import gal.music.MusicPlayer;
+			import gal.text.TypeWriter;
+			import mx.events.FlexEvent;
+			import mx.events.MenuEvent;
+			import mx.controls.Alert;
+ 			import mx.rpc.xml.SimpleXMLDecoder;
+ 			import gal.event.*;
+ 			
+			public var actionId:int=0;
+			
+			protected	var UI_URL:String="UI.xml";
+			protected	var Script_URL:String = "Script.xml";
+			protected	var ScriptURL:URLRequest = new URLRequest(Script_URL);
+			protected	var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
+			protected	var UIURL:URLRequest = new URLRequest(UI_URL);
+			protected	var UILoader:URLLoader = new URLLoader(UIURL);
+			protected var musicPlayer:MusicPlayer=new MusicPlayer();
+			protected var mainText:Text;
+            
+			protected function myMenuBar_itemClickHandler(event:MenuEvent):void
+			{
+				if(event.label=="关于…"){
+					Alert.show("AIR_GAL_Engine ver0.1","关于");
+				}
+				if(event.label=="全屏"){
+					stage.displayState = StageDisplayState.FULL_SCREEN;
+				}
+				if(event.label=="窗口"){
+					stage.displayState = StageDisplayState.NORMAL;
+				}
+			}
+
+
+
+
+			protected function windowedapplication1_clickHandler(event:MouseEvent):void
+			{
+				if(!TypeWriter.isTypeing){
+					doAction();
+				} else {
+					TypeWriter.update();
+				}
+			}
+
+
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+
+			}
+			
+			protected function doAction():void{
+				var isStop:Boolean=false
+				try{
+					while(!isStop){
+						switch(actionPool.getItemAt(actionId).type){
+							case "bg_change":
+								backgroud.visible=false;
+								backgroud.source=actionPool.getItemAt(actionId).src;
+								backgroud.visible=true;
+								break;
+							case "bgm_start":
+								musicPlayer.bgmPlay(actionPool.getItemAt(actionId).src);
+								break;
+							case "text":
+								TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
+								isStop=true;
+								break;
+							case "page_turning":
+								mainText.text="";
+								break;
+						}
+						actionId++;
+					}
+				} catch (e:RangeError){
+					this.stage.nativeWindow.close();
+				} 
+			}
+			
+			protected function ScriptLoader_Complete(event:Event):void
+			{
+                var xmlDoc:XMLDocument = new XMLDocument(ScriptLoader.data);
+                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
+                var resultObj:Object = decoder.decodeXML(xmlDoc);
+                actionPool=resultObj.Script.action;
+			}
+			
+			protected function UILoader_Complete(event:Event):void
+			{
+                var xmlDoc:XMLDocument = new XMLDocument(UILoader.data);
+                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
+                var resultObj:Object = decoder.decodeXML(xmlDoc);
+                var UIkeeper:UImanagement=new UImanagement(this as spark.components.WindowedApplication);
+                UIkeeper.buildUI(resultObj.UI.control);
+			}
+			
+			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
+			{
+				ScriptLoader.addEventListener(Event.COMPLETE, ScriptLoader_Complete);
+				UILoader.addEventListener(Event.COMPLETE, UILoader_Complete);
+				ScriptLoader.load(ScriptURL);
+				UILoader.load(UIURL);
+			}
+
+
+			protected function windowedapplication1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				doAction();
+			}
+
+
+			protected function windowedapplication1_preinitializeHandler(event:FlexEvent):void
+			{
+				this.addEventListener(SetMainTextBoxEvent.SETMAINTEXTBOX,app_setMainTextBoxHandler);
+				this.addEventListener(AddTextBoxEvent.ADDTEXTBOX,app_addTextBoxHandler);
+			}
+			
+			protected function app_setMainTextBoxHandler(event:SetMainTextBoxEvent):void{
+				mainText=event.mainTextBox.text;
+				TypeWriter.inTextField=mainText;
+			}
+			
+			protected function app_addTextBoxHandler(event:AddTextBoxEvent):void{
+				this.addElement(event.textBox);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<mx:ArrayCollection id="actionPool" />
+	    <mx:Fade id="fadeOut" duration="1000" alphaFrom="1.0" alphaTo="0.0"/>
+	    <mx:Fade id="fadeIn" duration="1000" alphaFrom="0.0" alphaTo="1.0"/>
+	</fx:Declarations>
+	<mx:Image id="backgroud" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false" scaleContent="true" hideEffect="{fadeOut}" showEffect="{fadeIn}" visible="false"/>
+    <!-- <mx:MenuBar id="myMenuBar" labelField="@label" 
+                 left="0" top="0" right="0" tabEnabled="false" alpha="0.6"
+                itemClick="myMenuBar_itemClickHandler(event)">
+         <fx:XMLList>
+            <menuitem label="开始" />
+            <menuitem label="输出" >
+                 <menuitem label="全屏"/>
+                 <menuitem label="窗口"/>
+            </menuitem>
+            <menuitem label="帮助" >
+                 <menuitem id="about" label="关于…"/>
+            </menuitem>
+        </fx:XMLList>
+     </mx:MenuBar> 
+    <mx:Image id="textbox" x="0" y="{this.height-textbox.height}" source="image/textbox.png" maintainAspectRatio="false" width="100%" alpha="0.9"/>	
+    <mx:Text id="text"  x="2" y="{textbox.y}" width="100%"/>-->
+
+</s:WindowedApplication>

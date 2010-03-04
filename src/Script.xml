@@ -1,0 +1,33 @@
+<Script>
+	<action id="9001" type="bg_change" src="background/backgroud.jpg" />
+	<action id="0000" type="bgm_start" src="bgm/air.mp3"/>
+	<action id="0001" type="text">
+		<text>我下了车。</text>
+	</action>
+	<action id="0002" type="text">
+	 	<text>为逼人的阵阵热气和公交车残留的废气所包围。</text>
+	</action>
+	<action id="0003" type="text">
+	 	<text>眼前突然一阵晕眩，让我闭上了双眼。</text>
+	</action>
+	<action id="0004" type="page_turning" />
+	<action id="0005" type="text">
+		<text>正当快听不到逐渐远去的公交车引擎声时，</text>
+	</action>
+	<action id="0006" type="text">
+	 	<text>大批的蝉叫声便取而代之地扑了过来。</text>
+	</action>
+	<action id="0007" type="text">
+	 	<text>我深呼吸了一口，鼻间传来了海潮的气息。</text>
+	</action>
+	<action id="0008" type="page_turning" />
+	<action id="0005" type="text">
+		<text>阳光持续地直晒着我毫无遮掩的脖子。</text>
+	</action>
+	<action id="0006" type="text">
+	 	<text>我缓缓地睁开双眼。</text>
+	</action>
+	<action id="0007" type="text">
+	 	<text>在我眼前所展开的，是一片从未见过的土地的夏日光景。</text>
+	</action>		
+</Script>
