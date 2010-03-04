@@ -1,0 +1,16 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/halo";
+
+@font-face{
+	src:local("微软雅黑");
+	fontFamily:"wyyh";
+	advancedAntiAliasing: true;
+}
+
+mx|Text
+{
+	color: #FFFFFF;
+	fontFamily: wyyh;
+	fontSize: 19;
+}
