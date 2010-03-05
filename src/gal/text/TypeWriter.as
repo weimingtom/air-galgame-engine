@@ -4,13 +4,18 @@ package gal.text
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 	
+	import gal.event.TypeWriterDestoryTimerEvent;
+	
 	import mx.controls.Text;
+	
+	import spark.components.WindowedApplication;
 
 	public class TypeWriter
 	{
 		private static var timerList:Dictionary = new Dictionary();
 		public static var inTextField:Text;
 		public static var isTypeing:Boolean=false;
+		public static var main:WindowedApplication;
 /****************Static函数****************/
 		//为某段String在某个TextField上实现打字机效果，以xx毫秒为间隔
 		public static function type (inString,inDelay)
@@ -84,6 +89,7 @@ package gal.text
 			timer.removeEventListener ("timer",_onTimeUp);
 			delete timerList[timer];
 			isTypeing=false;
+			main.dispatchEvent(new TypeWriterDestoryTimerEvent());
 		}
 /****************Static函数****************/
 	}

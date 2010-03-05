@@ -3,6 +3,8 @@
 	<fx:Style source="font.css"/>
 	<fx:Script>
 		<![CDATA[
+			import gal.UI.control.ClickGifShower;
+			import mx.core.IVisualElement;
 			import gal.UI.control.TextBox;
 			import mx.core.WindowedApplication;
 			import gal.UI.management.UImanagement;
@@ -14,17 +16,19 @@
 			import mx.controls.Alert;
  			import mx.rpc.xml.SimpleXMLDecoder;
  			import gal.event.*;
+ 			import flash.utils.getQualifiedClassName;
  			
 			public var actionId:int=0;
 			
-			protected	var UI_URL:String="UI.xml";
-			protected	var Script_URL:String = "Script.xml";
-			protected	var ScriptURL:URLRequest = new URLRequest(Script_URL);
-			protected	var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
-			protected	var UIURL:URLRequest = new URLRequest(UI_URL);
-			protected	var UILoader:URLLoader = new URLLoader(UIURL);
+			protected var UI_URL:String="UI.xml";
+			protected var Script_URL:String = "Script.xml";
+			protected var ScriptURL:URLRequest = new URLRequest(Script_URL);
+			protected var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
+			protected var UIURL:URLRequest = new URLRequest(UI_URL);
+			protected var UILoader:URLLoader = new URLLoader(UIURL);
 			protected var musicPlayer:MusicPlayer=new MusicPlayer();
 			protected var mainText:Text;
+			protected var clickGifShower:ClickGifShower;
             
 			protected function myMenuBar_itemClickHandler(event:MenuEvent):void
 			{
@@ -44,6 +48,7 @@
 
 			protected function windowedapplication1_clickHandler(event:MouseEvent):void
 			{
+				clickGifShower.visible=false;
 				if(!TypeWriter.isTypeing){
 					doAction();
 				} else {
@@ -71,11 +76,16 @@
 								musicPlayer.bgmPlay(actionPool.getItemAt(actionId).src);
 								break;
 							case "text":
+								clickGifShower.visible=false;
 								TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
 								isStop=true;
 								break;
 							case "page_turning":
 								mainText.text="";
+								break;
+							case "script_end":
+								this.stage.nativeWindow.close();
+								isStop=true;
 								break;
 						}
 						actionId++;
@@ -104,6 +114,7 @@
 			
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
+				TypeWriter.main=this as spark.components.WindowedApplication; 
 				ScriptLoader.addEventListener(Event.COMPLETE, ScriptLoader_Complete);
 				UILoader.addEventListener(Event.COMPLETE, UILoader_Complete);
 				ScriptLoader.load(ScriptURL);
@@ -120,7 +131,8 @@
 			protected function windowedapplication1_preinitializeHandler(event:FlexEvent):void
 			{
 				this.addEventListener(SetMainTextBoxEvent.SETMAINTEXTBOX,app_setMainTextBoxHandler);
-				this.addEventListener(AddTextBoxEvent.ADDTEXTBOX,app_addTextBoxHandler);
+				this.addEventListener(AddControlEvent.ADDTEXTBOX,app_addControlHandler);
+				this.addEventListener(TypeWriterDestoryTimerEvent.DESTORYTIMER,app_TypeEndHandler);
 			}
 			
 			protected function app_setMainTextBoxHandler(event:SetMainTextBoxEvent):void{
@@ -128,10 +140,18 @@
 				TypeWriter.inTextField=mainText;
 			}
 			
-			protected function app_addTextBoxHandler(event:AddTextBoxEvent):void{
-				this.addElement(event.textBox);
+			protected function app_addControlHandler(event:AddControlEvent):void{
+				this.addElement(event.control as IVisualElement);
+				if(getQualifiedClassName(event.control)=="gal.UI.control::ClickGifShower"){
+					(event.control as ClickGifShower).show();
+					clickGifShower=event.control as ClickGifShower;
+					clickGifShower.visible=false;
+				}
 			}
 
+			protected function app_TypeEndHandler(event:Event):void{
+				clickGifShower.visible=true;
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
