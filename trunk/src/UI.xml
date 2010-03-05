@@ -1,4 +1,4 @@
 <UI>
 	<control type="textBox" x="0" y="465" height="135" width="800" isMain="true" alpha="0.6" src="image/textbox.png"/>
-	<control type=" "/>
+	<control type="click_gif" x="750" y="550" height="32" width="40" src="image/99.gif"/>
 </UI>

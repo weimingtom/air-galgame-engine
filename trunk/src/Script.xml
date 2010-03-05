@@ -29,5 +29,14 @@
 	</action>
 	<action id="0007" type="text">
 	 	<text>在我眼前所展开的，是一片从未见过的土地的夏日光景。</text>
-	</action>		
+	</action>	
+	<action type="if" test="1+1>2">
+		<ramus type="do">
+			<action type="jump" src="2.xml" />
+			<action type="end_if" />
+		</ramus>
+		<ramus type="else">
+		</ramus>
+	</action>
+	<action type="script_end" />			
 </Script>
