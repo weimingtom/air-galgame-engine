@@ -3,6 +3,7 @@
 	<fx:Style source="font.css"/>
 	<fx:Script>
 		<![CDATA[
+			import gal.UI.control.Role;
 			import gal.UI.control.ClickGifShower;
 			import mx.core.IVisualElement;
 			import gal.UI.control.TextBox;
@@ -29,6 +30,7 @@
 			protected var musicPlayer:MusicPlayer=new MusicPlayer();
 			protected var mainText:Text;
 			protected var clickGifShower:ClickGifShower;
+			protected var RoleList:ArrayCollection=new ArrayCollection();
             
 			protected function myMenuBar_itemClickHandler(event:MenuEvent):void
 			{
@@ -72,12 +74,26 @@
 								backgroud.source=actionPool.getItemAt(actionId).src;
 								backgroud.visible=true;
 								break;
+							case "role_change":
+								var role:Role;
+								for(var i:int=0;i<=RoleList.length-1;i++){
+									role=RoleList.getItemAt(i) as Role;
+									if(role.position==actionPool.getItemAt(actionId).position){
+										role.source=actionPool.getItemAt(actionId).src;
+										break;
+									}
+								}
+								break;
 							case "bgm_start":
 								musicPlayer.bgmPlay(actionPool.getItemAt(actionId).src);
 								break;
 							case "text":
 								clickGifShower.visible=false;
-								TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
+								if(actionPool.getItemAt(actionId).showType=="html"){
+									mainText.htmlText=actionPool.getItemAt(actionId).text;
+								} else {
+									TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
+								}
 								isStop=true;
 								break;
 							case "page_turning":
@@ -87,6 +103,7 @@
 								this.stage.nativeWindow.close();
 								isStop=true;
 								break;
+							
 						}
 						actionId++;
 					}
@@ -146,6 +163,9 @@
 					(event.control as ClickGifShower).show();
 					clickGifShower=event.control as ClickGifShower;
 					clickGifShower.visible=false;
+				}
+				if(getQualifiedClassName(event.control)=="gal.UI.control::Role"){
+					RoleList.addItem(event.control);
 				}
 			}
 
