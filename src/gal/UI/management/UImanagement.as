@@ -42,6 +42,12 @@ package gal.UI.management
 						new Number(tempUIcontrol.height),tempUIcontrol.src);
 						main.dispatchEvent(new AddControlEvent(control));
 						break;
+					case "role":
+						control=RoleFactory.manufacture(new Number(tempUIcontrol.x),
+						new Number(tempUIcontrol.y),new Number(tempUIcontrol.width),
+						new Number(tempUIcontrol.height),tempUIcontrol.positionName);
+						main.dispatchEvent(new AddControlEvent(control));
+						break;
 				}
 			}
 		}

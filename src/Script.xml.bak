@@ -4,20 +4,19 @@
 	<action id="0001" type="text">
 		<text>我下了车。</text>
 	</action>
-	<action id="9001" type="role_change" position="center" src="image/66.png" />
 	<action id="0002" type="text">
 	 	<text>为逼人的阵阵热气和公交车残留的废气所包围。</text>
 	</action>
-	<action id="9001" type="role_change" position="left" src="image/66.png" />
+	<action type="text" showType="html">
+	 	<text>为逼人的阵阵热气和公交车残留的废气所包围。</text>
+	</action>
 	<action id="0003" type="text">
 	 	<text>眼前突然一阵晕眩，让我闭上了双眼。</text>
 	</action>
-	<action id="9001" type="role_change" position="right" src="image/66.png" />
 	<action id="0004" type="page_turning" />
 	<action id="0005" type="text">
 		<text>正当快听不到逐渐远去的公交车引擎声时，</text>
 	</action>
-	<action id="9001" type="role_change" position="center" src="" />
 	<action id="0006" type="text">
 	 	<text>大批的蝉叫声便取而代之地扑了过来。</text>
 	</action>

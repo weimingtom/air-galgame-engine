@@ -1,4 +1,7 @@
 <UI>
+	<control type="role" positionName="center" x="240" y="120" height="480" weight="380" />
+	<control type="role" positionName="left" x="100" y="120" height="480" weight="380" />
+	<control type="role" positionName="right" x="540" y="120" height="480" weight="380" />
 	<control type="textBox" x="0" y="465" height="135" width="800" isMain="true" alpha="0.6" src="image/textbox.png"/>
 	<control type="click_gif" x="750" y="550" height="32" width="40" src="image/99.gif"/>
 </UI>
