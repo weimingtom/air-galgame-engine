@@ -31,6 +31,7 @@
 			protected var mainText:Text;
 			protected var clickGifShower:ClickGifShower;
 			protected var RoleList:ArrayCollection=new ArrayCollection();
+			protected var variableTable:ArrayCollection=new ArrayCollection();//变量表
             
 			protected function myMenuBar_itemClickHandler(event:MenuEvent):void
 			{
