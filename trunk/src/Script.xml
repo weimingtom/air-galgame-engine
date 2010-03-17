@@ -1,4 +1,5 @@
 <Script>
+	<action type="evaluate" key="_a" value="4" />
 	<action id="9001" type="bg_change" src="background/backgroud.jpg" />
 	<action id="0000" type="bgm_start" src="bgm/air.mp3"/>
 	<action id="0001" type="text">
