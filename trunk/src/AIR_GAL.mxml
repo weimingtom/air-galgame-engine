@@ -23,10 +23,13 @@
 			
 			protected var UI_URL:String="UI.xml";
 			protected var Script_URL:String = "Script.xml";
+			protected var Variable_URL:String="VariableTable.xml";
 			protected var ScriptURL:URLRequest = new URLRequest(Script_URL);
 			protected var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
 			protected var UIURL:URLRequest = new URLRequest(UI_URL);
 			protected var UILoader:URLLoader = new URLLoader(UIURL);
+			protected var VariableURL:URLRequest = new URLRequest(Variable_URL);
+			protected var VariableLoader:URLLoader = new URLLoader(VariableURL);
 			protected var musicPlayer:MusicPlayer=new MusicPlayer();
 			protected var mainText:Text;
 			protected var clickGifShower:ClickGifShower;
@@ -104,7 +107,14 @@
 								this.stage.nativeWindow.close();
 								isStop=true;
 								break;
-							
+							case "evaluate":
+								for(var j:int=0;i<=variableTable.length-1;i++){
+									if(variableTable.getItemAt(j).key==actionPool.getItemAt(actionId).key){
+										variableTable.getItemAt(j).value=actionPool.getItemAt(actionId).value;
+										break;
+									}
+								}
+								break;
 						}
 						actionId++;
 					}
@@ -130,13 +140,22 @@
                 UIkeeper.buildUI(resultObj.UI.control);
 			}
 			
+			protected function VariableLoader_Complete(event:Event):void{
+                var xmlDoc:XMLDocument = new XMLDocument(VariableLoader.data);
+                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
+                var resultObj:Object = decoder.decodeXML(xmlDoc);
+                variableTable=resultObj.VariableTable.variable;
+			}
+			
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
 				TypeWriter.main=this as spark.components.WindowedApplication; 
 				ScriptLoader.addEventListener(Event.COMPLETE, ScriptLoader_Complete);
 				UILoader.addEventListener(Event.COMPLETE, UILoader_Complete);
+				VariableLoader.addEventListener(Event.COMPLETE, VariableLoader_Complete);
 				ScriptLoader.load(ScriptURL);
 				UILoader.load(UIURL);
+				VariableLoader.load(VariableURL);
 			}
 
 
