@@ -1,16 +1,18 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/halo";
+@namespace mx1 "library://ns.adobe.com/flex/mx" ;
 
 @font-face{
-	src:local("微软雅黑");
-	fontFamily:"wyyh";
+	src:url("font/CustFont.ttf");
+	fontFamily:"CustFont";
 	advancedAntiAliasing: true;
 }
 
-mx|Text
+mx1|Text
 {
 	color: #FFFFFF;
-	fontFamily: wyyh;
-	fontSize: 19;
+	fontFamily: 中易黑体;
+	fontSize: 20;
+	advancedAntiAliasing: true;
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
-	<mx:Image id="bgpic" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false"/>
-	<mx:Text id="text" x="1" y="0" width="100%" height="100%" selectable="false"/>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:mx1="library://ns.adobe.com/flex/mx">
+	<mx1:Image id="bgpic" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false"/>
+	<mx1:Text id="text" x="1" y="0" width="100%" height="100%" selectable="false"/>
 </s:Group>
