@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" showStatusBar="false" click="windowedapplication1_clickHandler(event)" creationComplete="windowedapplication1_creationCompleteHandler(event)" initialize="windowedapplication1_initializeHandler(event)" applicationComplete="windowedapplication1_applicationCompleteHandler(event)" preinitialize="windowedapplication1_preinitializeHandler(event)">
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" showStatusBar="false" click="windowedapplication1_clickHandler(event)" creationComplete="windowedapplication1_creationCompleteHandler(event)" initialize="windowedapplication1_initializeHandler(event)" applicationComplete="windowedapplication1_applicationCompleteHandler(event)" preinitialize="windowedapplication1_preinitializeHandler(event)" xmlns:mx1="library://ns.adobe.com/flex/mx" fontFamily="中易黑体">
 	<fx:Style source="font.css"/>
 	<fx:Script>
 		<![CDATA[
@@ -195,11 +195,11 @@
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<mx:ArrayCollection id="actionPool" />
-	    <mx:Fade id="fadeOut" duration="1000" alphaFrom="1.0" alphaTo="0.0"/>
-	    <mx:Fade id="fadeIn" duration="1000" alphaFrom="0.0" alphaTo="1.0"/>
+		<s:ArrayCollection id="actionPool" />
+	    <s:Fade id="fadeOut" duration="1000" alphaFrom="1.0" alphaTo="0.0"/>
+	    <s:Fade id="fadeIn" duration="1000" alphaFrom="0.0" alphaTo="1.0"/>
 	</fx:Declarations>
-	<mx:Image id="backgroud" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false" scaleContent="true" hideEffect="{fadeOut}" showEffect="{fadeIn}" visible="false"/>
+	<mx1:Image id="backgroud" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false" scaleContent="true" hideEffect="{fadeOut}" showEffect="{fadeIn}" visible="false"/>
     <!-- <mx:MenuBar id="myMenuBar" labelField="@label" 
                  left="0" top="0" right="0" tabEnabled="false" alpha="0.6"
                 itemClick="myMenuBar_itemClickHandler(event)">
