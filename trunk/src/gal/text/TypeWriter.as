@@ -8,12 +8,13 @@ package gal.text
 	
 	import mx.controls.Text;
 	
+	import spark.components.RichText;
 	import spark.components.WindowedApplication;
 
 	public class TypeWriter
 	{
 		private static var timerList:Dictionary = new Dictionary();
-		public static var inTextField:Text;
+		public static var inTextField:RichText;
 		public static var isTypeing:Boolean=false;
 		public static var main:WindowedApplication;
 /****************Static函数****************/
