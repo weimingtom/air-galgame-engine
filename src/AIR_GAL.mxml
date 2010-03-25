@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" showStatusBar="false" click="windowedapplication1_clickHandler(event)" creationComplete="windowedapplication1_creationCompleteHandler(event)" initialize="windowedapplication1_initializeHandler(event)" applicationComplete="windowedapplication1_applicationCompleteHandler(event)" preinitialize="windowedapplication1_preinitializeHandler(event)" xmlns:mx1="library://ns.adobe.com/flex/mx" fontFamily="中易黑体">
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" showStatusBar="false" click="windowedapplication1_clickHandler(event)" creationComplete="windowedapplication1_creationCompleteHandler(event)" initialize="windowedapplication1_initializeHandler(event)" applicationComplete="windowedapplication1_applicationCompleteHandler(event)" preinitialize="windowedapplication1_preinitializeHandler(event)" xmlns:mx1="library://ns.adobe.com/flex/mx">
 	<fx:Style source="font.css"/>
 	<fx:Script>
 		<![CDATA[
-			import gal.UI.control.Role;
+			import flash.utils.getQualifiedClassName;
+			
 			import gal.UI.control.ClickGifShower;
-			import mx.core.IVisualElement;
+			import gal.UI.control.Role;
 			import gal.UI.control.TextBox;
-			import mx.core.WindowedApplication;
 			import gal.UI.management.UImanagement;
-			import mx.controls.Text;
+			import gal.event.*;
 			import gal.music.MusicPlayer;
+			import gal.text.FontAssets;
 			import gal.text.TypeWriter;
+			
+			import mx.controls.Alert;
+			import mx.controls.Text;
+			import mx.core.IVisualElement;
+			import mx.core.WindowedApplication;
 			import mx.events.FlexEvent;
 			import mx.events.MenuEvent;
-			import mx.controls.Alert;
- 			import mx.rpc.xml.SimpleXMLDecoder;
- 			import gal.event.*;
- 			import flash.utils.getQualifiedClassName;
+			import mx.rpc.xml.SimpleXMLDecoder;
+			
+			import spark.components.RichText;
+			
  			
 			public var actionId:int=0;
 			
@@ -31,7 +37,7 @@
 			protected var VariableURL:URLRequest = new URLRequest(Variable_URL);
 			protected var VariableLoader:URLLoader = new URLLoader(VariableURL);
 			protected var musicPlayer:MusicPlayer=new MusicPlayer();
-			protected var mainText:Text;
+			protected var mainText:RichText;
 			protected var clickGifShower:ClickGifShower;
 			protected var RoleList:ArrayCollection=new ArrayCollection();
 			protected var variableTable:ArrayCollection=new ArrayCollection();//变量表
@@ -94,7 +100,7 @@
 							case "text":
 								clickGifShower.visible=false;
 								if(actionPool.getItemAt(actionId).showType=="html"){
-									mainText.htmlText=actionPool.getItemAt(actionId).text;
+									mainText.text=actionPool.getItemAt(actionId).text;
 								} else {
 									TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
 								}
@@ -170,6 +176,7 @@
 				this.addEventListener(SetMainTextBoxEvent.SETMAINTEXTBOX,app_setMainTextBoxHandler);
 				this.addEventListener(AddControlEvent.ADDTEXTBOX,app_addControlHandler);
 				this.addEventListener(TypeWriterDestoryTimerEvent.DESTORYTIMER,app_TypeEndHandler);
+				Font.registerFont(FontAssets.PixelFont);
 			}
 			
 			protected function app_setMainTextBoxHandler(event:SetMainTextBoxEvent):void{

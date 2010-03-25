@@ -2,17 +2,26 @@
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/halo";
 @namespace mx1 "library://ns.adobe.com/flex/mx" ;
-
+/*
 @font-face{
-	src:url("font/CustFont.ttf");
-	fontFamily:"CustFont";
+	src:url("font/wqy-microhei.ttc");
+	fontFamily:"wqy-microhei";
 	advancedAntiAliasing: true;
-}
+}*/
 
-mx1|Text
+s|RichText
 {
 	color: #FFFFFF;
-	fontFamily: 中易黑体;
 	fontSize: 20;
+}
+global
+{
+	font-family: wqy-microhei;
+}
+@font-face
+{
+	fontFamily: wqy-microhei;
+	src: url("font\wqy-microhei.ttc");
+	embedAsCFF: true;
 	advancedAntiAliasing: true;
 }
