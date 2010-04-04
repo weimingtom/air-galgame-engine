@@ -1,5 +1,5 @@
 <Script>
-	<action type="evaluate" key="_a" value="4" />
+	<action type="evaluate" key="_a" value="_b+2" />
 	<action id="9001" type="bg_change" src="background/backgroud.jpg" />
 	<action id="0000" type="bgm_start" src="bgm/air.mp3"/>
 	<action id="0001" type="text">
@@ -35,12 +35,20 @@
 	<action id="0007" type="text">
 	 	<text>在我眼前所展开的，是一片从未见过的土地的夏日光景。</text>
 	</action>	
-	<action type="if" test="1+1>2">
+	<action type="if" test="_a>2">
 		<ramus type="do">
-			<action type="jump" src="2.xml" />
-			<action type="end_if" />
+			<action id="0008" type="page_turning" />
+			<action id="0007" type="text">
+				<text>分支：条件为真</text>
+			</action>
+			<action type="end_if"/>			
 		</ramus>
 		<ramus type="else">
+			<action id="0008" type="page_turning" />
+			<action id="0007" type="text">
+				<text>分支：条件为假</text>
+			</action>
+			<action type="end_if"/>
 		</ramus>
 	</action>
 	<action type="script_end" />			
