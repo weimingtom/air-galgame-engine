@@ -15,7 +15,7 @@ package AGE.evaluator
 			var parenthesisFlag:int=0;
 			for(var i:int=0;i<=charArray.length-1;i++){
 				var tmp:String=charArray.getItemAt(i).toString();
-				if(!(tmp.charCodeAt()>=48 && tmp.charCodeAt()<=57 || tmp=="(" || tmp==")" || tmp=="+" || tmp=="-" || tmp=="*" || tmp=="/" || tmp==".")){
+				if(!(tmp.charCodeAt()>=48 && tmp.charCodeAt()<=57 || tmp=="(" || tmp==")" || tmp=="+" || tmp=="-" || tmp=="*" || tmp=="/" || tmp=="." || tmp==">" || tmp=="<" || tmp=="=" || tmp=="|" || tmp=="&" || tmp=="!" )){
 					return false;
 				}
 				if(tmp=="("){

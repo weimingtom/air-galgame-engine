@@ -3,11 +3,8 @@
 	<fx:Style source="font.css"/>
 	<fx:Script>
 		<![CDATA[
-			import flash.utils.getQualifiedClassName;
-			
 			import AGE.UI.control.ClickGifShower;
 			import AGE.UI.control.Role;
-			import AGE.UI.control.TextBox;
 			import AGE.UI.management.UImanagement;
 			import AGE.evaluator.*;
 			import AGE.event.*;
@@ -16,13 +13,9 @@
 			import AGE.text.TypeWriter;
 			
 			import mx.controls.Alert;
-			import mx.controls.Text;
-			import mx.core.INavigatorContent;
 			import mx.core.IVisualElement;
-			import mx.core.WindowedApplication;
 			import mx.events.FlexEvent;
 			import mx.events.MenuEvent;
-			import mx.messaging.channels.StreamingAMFChannel;
 			import mx.rpc.xml.SimpleXMLDecoder;
 			
 			import spark.components.RichText;
@@ -32,6 +25,7 @@
 			
 			protected var UI_URL:String="UI.xml";
 			protected var Script_URL:String = "Script.xml";
+//			protected var Script_URL:String = "test.xml";
 			protected var Variable_URL:String="VariableTable.xml";
 			protected var ScriptURL:URLRequest = new URLRequest(Script_URL);
 			protected var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
@@ -60,9 +54,6 @@
 				}
 			}
 
-
-
-
 			protected function windowedapplication1_clickHandler(event:MouseEvent):void
 			{
 				clickGifShower.visible=false;
@@ -82,143 +73,109 @@
 			{
 
 			}
-			
+			/**
+			 * 主脚本动作流执行器
+			 */
 			protected function doAction():void{
 				var isStop:Boolean=false
 				try{
 					while(!isStop){
-						switch(actionPool.getItemAt(actionId).type){
-							case "bg_change":
-								backgroud.visible=false;
-								backgroud.source=actionPool.getItemAt(actionId).src;
-								backgroud.visible=true;
-								break;
-							case "role_change":
-								var role:Role;
-								for(var i:int=0;i<=RoleList.length-1;i++){
-									role=RoleList.getItemAt(i) as Role;
-									if(role.position==actionPool.getItemAt(actionId).position){
-										if(actionPool.getItemAt(actionId).src!=""){
-											fadeOut.play([role]);
-											role.source=actionPool.getItemAt(actionId).src;
-											fadeIn.play([role]);
-										} else {
-											fadeOut.play([role]);
-										}
-										
-										break;
-									}
-								}
-								break;
-							case "bgm_start":
-								musicPlayer.bgmPlay(actionPool.getItemAt(actionId).src);
-								break;
-							case "text":
-								clickGifShower.visible=false;
-								if(actionPool.getItemAt(actionId).showType=="html"){
-									mainText.text=actionPool.getItemAt(actionId).text;
-								} else {
-									TypeWriter.type(actionPool.getItemAt(actionId).text+"\n",30);
-								}
-								isStop=true;
-								break;
-							case "page_turning":
-								mainText.text="";
-								break;
-							case "script_end":
-								this.stage.nativeWindow.close();
-								isStop=true;
-								break;
-							case "evaluate":
-								for(var j:int=0;j<=variableTable.length-1;i++){
-									if(variableTable.getItemAt(j).key==actionPool.getItemAt(actionId).key){
-										var exp:String=VariableExchanger.exchange(actionPool.getItemAt(actionId).value);
-										if(CheckEvaluator.check(exp)){
-											variableTable.getItemAt(j).value=ExpressionEvaluator.eval(exp);
-										}
-										break;
-									}
-								}
-								break;
-							case "if":
-								var exp:String=actionPool.getItemAt(actionId).test;
-								exp=VariableExchanger.exchange(exp);
-								if(LogicEvaluator.eval(exp)){
-									isStop=true;
-									interruptActionPool=actionPool.getItemAt(actionId).ramus.getItemAt(0).action;
-									interruptDoAction();
-								} else {
-									isStop=true;
-									interruptActionPool=actionPool.getItemAt(actionId).ramus.getItemAt(1).action;
-									interruptDoAction();
-								}
-								break;
-						}
+						isStop=action(actionPool.getItemAt(actionId));
 						actionId++;
 					}
 				} catch (e:RangeError){
 					this.stage.nativeWindow.close();
 				} 
 			}
-			
+		   /**  
+			* 根据脚本xml读取出的action做出相应动作
+			* @param action 单个action实体
+			* @return 是否暂停脚本动作流
+			*/
+			private function action(action:Object):Boolean{
+				switch(action.type){
+					case "bg_change":
+						backgroud.visible=false;
+						backgroud.source=action.src;
+						backgroud.visible=true;
+						break;
+					case "role_change":
+						var role:Role;
+						for(var i:int=0;i<=RoleList.length-1;i++){
+							role=RoleList.getItemAt(i) as Role;
+							if(role.position==action.position){
+								if(action.src!=""){
+									fadeOut.play([role]);
+									role.source=action.src;
+									fadeIn.play([role]);
+								} else {
+									fadeOut.play([role]);
+								}
+								
+								break;
+							}
+						}
+						break;
+					case "bgm_start":
+						musicPlayer.bgmPlay(action.src);
+						break;
+					case "text":
+						clickGifShower.visible=false;
+						TypeWriter.type(action.value+"\n",30);
+						return true;
+						break;
+					case "page_turning":
+						mainText.text="";
+						break;
+					case "script_end":
+						this.stage.nativeWindow.close();
+						return true;
+						break;
+					case "evaluate":
+						for(var j:int=0;j<=variableTable.length-1;i++){
+							if(variableTable.getItemAt(j).key==action.key){
+								var exp:String=VariableExchanger.exchange(action.value);
+								if(CheckEvaluator.check(exp)){
+									variableTable.getItemAt(j).value=eval(exp);
+								}
+								
+								break;
+							}
+						}
+						break;
+					case "if":
+						var exp:String=action.test;
+						exp=VariableExchanger.exchange(exp);
+						var result:Boolean;
+						if(CheckEvaluator.check(exp)){
+							result=eval(exp);
+						}
+						if(result){
+							interruptActionPool=action.ramus.getItemAt(0).action;
+							interruptDoAction();
+							return true;
+						} else {
+							interruptActionPool=action.ramus.getItemAt(1).action;
+							interruptDoAction();
+							return true;
+						}
+						break;
+					case "end_if":
+						interruptActionPool=new ArrayCollection();
+						interruptActionID=0;
+						doAction();
+						return false;							
+				}
+				return false;
+			}
+			/**
+			 * 中断脚本动作流执行器
+			 */			
 			protected function interruptDoAction():void{
 				var isStop:Boolean=false
 				try{
 					while(!isStop){
-						switch(interruptActionPool.getItemAt(interruptActionID).type){
-							case "bg_change":
-								backgroud.visible=false;
-								backgroud.source=interruptActionPool.getItemAt(interruptActionID).src;
-								backgroud.visible=true;
-								break;
-							case "role_change":
-								var role:Role;
-								for(var i:int=0;i<=RoleList.length-1;i++){
-									role=RoleList.getItemAt(i) as Role;
-									if(role.position==interruptActionPool.getItemAt(interruptActionID).position){
-										fadeOut.play([role]);
-										role.source=interruptActionPool.getItemAt(interruptActionID).src;
-										fadeIn.play([role]);
-										break;
-									}
-								}
-								break;
-							case "bgm_start":
-								musicPlayer.bgmPlay(interruptActionPool.getItemAt(interruptActionID).src);
-								break;
-							case "text":
-								clickGifShower.visible=false;
-								if(interruptActionPool.getItemAt(interruptActionID).showType=="html"){
-									mainText.text=interruptActionPool.getItemAt(interruptActionID).text;
-								} else {
-									TypeWriter.type(interruptActionPool.getItemAt(interruptActionID).text+"\n",30);
-								}
-								isStop=true;
-								break;
-							case "page_turning":
-								mainText.text="";
-								break;
-							case "script_end":
-								this.stage.nativeWindow.close();
-								isStop=true;
-								break;
-							case "evaluate":
-								for(var j:int=0;j<=variableTable.length-1;i++){
-									if(variableTable.getItemAt(j).key==interruptActionPool.getItemAt(interruptActionID).key){
-										var exp:String=VariableExchanger.exchange(interruptActionPool.getItemAt(interruptActionID).value);
-										if(CheckEvaluator.check(exp)){
-											variableTable.getItemAt(j).value=ExpressionEvaluator.eval(exp);
-										}
-										break;
-									}
-								}
-								break;
-							case "end_if":
-								interruptActionPool=new ArrayCollection();
-								interruptActionID=0;
-								doAction();
-								return;	
-						}
+						isStop=action(interruptActionPool.getItemAt(interruptActionID));
 						interruptActionID++;
 					}
 				} catch (e:RangeError){
@@ -229,13 +186,20 @@
 				} 
 				
 			}
-			
+			/**
+			 * 读取脚本完成事件处理函数
+			 * @param event 读取完成事件
+			 */
 			protected function ScriptLoader_Complete(event:Event):void
 			{
                 var xmlDoc:XMLDocument = new XMLDocument(ScriptLoader.data);
                 var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
                 var resultObj:Object = decoder.decodeXML(xmlDoc);
                 actionPool=resultObj.Script.action;
+			}
+			
+			protected function eval(exp:String){
+				return Evaluator.htmlLoader.window.evalExp(exp);
 			}
 			
 			protected function UILoader_Complete(event:Event):void
@@ -309,6 +273,7 @@
 	    <s:Fade id="fadeIn" duration="1000" alphaFrom="0.0" alphaTo="1.0"/>
 	</fx:Declarations>
 	<mx1:Image id="backgroud" x="0" y="0" width="100%" height="100%" maintainAspectRatio="false" scaleContent="true" hideEffect="{fadeOut}" showEffect="{fadeIn}" visible="false"/>
+	<mx1:HTML id="Evaluator" location="Evaluator.html" visible="false" />
     <!-- <mx:MenuBar id="myMenuBar" labelField="@label" 
                  left="0" top="0" right="0" tabEnabled="false" alpha="0.6"
                 itemClick="myMenuBar_itemClickHandler(event)">
