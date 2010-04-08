@@ -1,10 +1,10 @@
 package AGE.UI.management
 {
-	import flash.filesystem.*;
-	
 	import AGE.UI.control.*;
 	import AGE.UI.factory.*;
 	import AGE.event.*;
+	
+	import flash.filesystem.*;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -29,7 +29,8 @@ package AGE.UI.management
 					case "textBox":
 						control=TextBoxFactory.manufacture(new Number(tempUIcontrol.x),
 						new Number(tempUIcontrol.y),new Number(tempUIcontrol.width),
-						new Number(tempUIcontrol.height),tempUIcontrol.src,
+						new Number(tempUIcontrol.height),new Number(tempUIcontrol.textX),
+						new Number(tempUIcontrol.textY),tempUIcontrol.src,
 						new Number(tempUIcontrol.alpha));
 						main.dispatchEvent(new AddControlEvent(control));
 						if(tempUIcontrol.isMain){
