@@ -6,7 +6,7 @@ package AGE.UI.factory
 	public class TextBoxFactory
 	{
 		
-		public static function manufacture(x:Number,y:Number,width:Number,height:Number,src:String,alpha:Number=1):TextBox{
+		public static function manufacture(x:Number,y:Number,width:Number,height:Number,textX:Number,textY:Number,src:String,alpha:Number=1):TextBox{
 			var product:TextBox=new TextBox();
 			product.x=x;
 			product.y=y;
@@ -14,6 +14,8 @@ package AGE.UI.factory
 			product.height=height;
 			product.bgpic.source=src;
 			product.bgpic.alpha=alpha;
+			product.textX=textX;
+			product.textY=textY;
 			return product;
 		}
 	}

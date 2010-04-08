@@ -8,6 +8,7 @@
 			import AGE.UI.management.UImanagement;
 			import AGE.evaluator.*;
 			import AGE.event.*;
+			import AGE.io.XMLReader;
 			import AGE.music.MusicPlayer;
 			import AGE.text.FontAssets;
 			import AGE.text.TypeWriter;
@@ -27,12 +28,6 @@
 			protected var Script_URL:String = "Script.xml";
 //			protected var Script_URL:String = "test.xml";
 			protected var Variable_URL:String="VariableTable.xml";
-			protected var ScriptURL:URLRequest = new URLRequest(Script_URL);
-			protected var ScriptLoader:URLLoader = new URLLoader(ScriptURL);
-			protected var UIURL:URLRequest = new URLRequest(UI_URL);
-			protected var UILoader:URLLoader = new URLLoader(UIURL);
-			protected var VariableURL:URLRequest = new URLRequest(Variable_URL);
-			protected var VariableLoader:URLLoader = new URLLoader(VariableURL);
 			protected var musicPlayer:MusicPlayer=new MusicPlayer();
 			protected var mainText:RichText;
 			protected var clickGifShower:ClickGifShower;
@@ -68,10 +63,13 @@
 				}
 			}
 
-
+			protected function windowedapplication1_rightClickHandler(event:MouseEvent):void{
+				Alert.show("111111","11");
+			}
+			
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-
+				this.addEventListener(MouseEvent.RIGHT_CLICK,windowedapplication1_rightClickHandler);
 			}
 			/**
 			 * 主脚本动作流执行器
@@ -90,10 +88,12 @@
 		   /**  
 			* 根据脚本xml读取出的action做出相应动作
 			* @param action 单个action实体
-			* @return 是否暂停脚本动作流
+			* @return 是否暂停脚本动作流 true为暂停
 			*/
 			private function action(action:Object):Boolean{
 				switch(action.type){
+					case "pause":
+						return true;
 					case "bg_change":
 						backgroud.visible=false;
 						backgroud.source=action.src;
@@ -160,7 +160,7 @@
 							return true;
 						}
 						break;
-					case "end_if":
+					case "return":
 						interruptActionPool=new ArrayCollection();
 						interruptActionID=0;
 						doAction();
@@ -186,48 +186,25 @@
 				} 
 				
 			}
-			/**
-			 * 读取脚本完成事件处理函数
-			 * @param event 读取完成事件
-			 */
-			protected function ScriptLoader_Complete(event:Event):void
-			{
-                var xmlDoc:XMLDocument = new XMLDocument(ScriptLoader.data);
-                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
-                var resultObj:Object = decoder.decodeXML(xmlDoc);
-                actionPool=resultObj.Script.action;
-			}
 			
 			protected function eval(exp:String){
 				return Evaluator.htmlLoader.window.evalExp(exp);
 			}
-			
-			protected function UILoader_Complete(event:Event):void
-			{
-                var xmlDoc:XMLDocument = new XMLDocument(UILoader.data);
-                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
-                var resultObj:Object = decoder.decodeXML(xmlDoc);
-                var UIkeeper:UImanagement=new UImanagement(this as spark.components.WindowedApplication);
-                UIkeeper.buildUI(resultObj.UI.control);
-			}
-			
-			protected function VariableLoader_Complete(event:Event):void{
-                var xmlDoc:XMLDocument = new XMLDocument(VariableLoader.data);
-                var decoder:SimpleXMLDecoder = new SimpleXMLDecoder(true);
-                var resultObj:Object = decoder.decodeXML(xmlDoc);
-                variableTable=resultObj.VariableTable.variable;
-				VariableExchanger.variableTable=variableTable;
-			}
-			
+						
 			protected function windowedapplication1_initializeHandler(event:FlexEvent):void
 			{
 				TypeWriter.main=this as spark.components.WindowedApplication;
-				ScriptLoader.addEventListener(Event.COMPLETE, ScriptLoader_Complete);
-				UILoader.addEventListener(Event.COMPLETE, UILoader_Complete);
-				VariableLoader.addEventListener(Event.COMPLETE, VariableLoader_Complete);
-				ScriptLoader.load(ScriptURL);
-				UILoader.load(UIURL);
-				VariableLoader.load(VariableURL);
+				//读取UI配置文件然后设置
+				var UI_Object:Object=XMLReader.read(UI_URL);
+				var UIkeeper:UImanagement=new UImanagement(this as spark.components.WindowedApplication);
+				UIkeeper.buildUI(UI_Object.UI.control);
+				//读取用户变量表格然后设置
+				var var_Object:Object=XMLReader.read(Variable_URL);
+				variableTable=var_Object.VariableTable.variable;
+				VariableExchanger.variableTable=variableTable;
+				//读取脚本设置
+				var Sprict_Object:Object=XMLReader.read(Script_URL);
+				actionPool=Sprict_Object.Script.action;
 			}
 
 
