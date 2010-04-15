@@ -13,7 +13,7 @@ package AGE.UI.factory
 			product.y=new Number(template.y);
 			product.width=new Number(template.width);
 			product.height=new Number(template.height);
-			product.position=template.position;
+			product.position=template.positionName;
 			return product;
 		}
 	}
