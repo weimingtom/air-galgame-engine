@@ -6,16 +6,16 @@ package AGE.UI.factory
 	public class TextBoxFactory
 	{
 		
-		public static function manufacture(x:Number,y:Number,width:Number,height:Number,textX:Number,textY:Number,src:String,alpha:Number=1):TextBox{
+		public static function manufacture(template:Object):TextBox{
 			var product:TextBox=new TextBox();
-			product.x=x;
-			product.y=y;
-			product.width=width;
-			product.height=height;
-			product.bgpic.source=src;
-			product.bgpic.alpha=alpha;
-			product.textX=textX;
-			product.textY=textY;
+			product.x=new Number(template.x);
+			product.y=new Number(template.y);
+			product.width=new Number(template.width);
+			product.height=new Number(template.height);
+			product.bgpic.source=template.src;
+			product.bgpic.alpha=new Number(template.alpha);
+			product.textX=new Number(template.textX);
+			product.textY=new Number(template.textY);
 			return product;
 		}
 	}

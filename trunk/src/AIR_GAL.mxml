@@ -10,7 +10,6 @@
 			import AGE.event.*;
 			import AGE.io.XMLReader;
 			import AGE.music.MusicPlayer;
-			import AGE.text.FontAssets;
 			import AGE.text.TypeWriter;
 			
 			import mx.controls.Alert;
@@ -219,7 +218,7 @@
 				this.addEventListener(SetMainTextBoxEvent.SETMAINTEXTBOX,app_setMainTextBoxHandler);
 				this.addEventListener(AddControlEvent.ADDTEXTBOX,app_addControlHandler);
 				this.addEventListener(TypeWriterDestoryTimerEvent.DESTORYTIMER,app_TypeEndHandler);
-				Font.registerFont(FontAssets.PixelFont);
+
 			}
 			
 			protected function app_setMainTextBoxHandler(event:SetMainTextBoxEvent):void{

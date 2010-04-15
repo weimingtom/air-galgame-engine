@@ -7,13 +7,13 @@ package AGE.UI.factory
 		{
 		}
 		
-		public static function manufacture(x:Number,y:Number,width:Number,height:Number,position:String){
+		public static function manufacture(template:Object):Role{
 			var product:Role=new Role();
-			product.x=x;
-			product.y=y;
-			product.width=width;
-			product.height=height;
-			product.position=position;
+			product.x=new Number(template.x);
+			product.y=new Number(template.y);
+			product.width=new Number(template.width);
+			product.height=new Number(template.height);
+			product.position=template.position;
 			return product;
 		}
 	}

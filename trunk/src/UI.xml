@@ -2,6 +2,6 @@
 	<control type="role" positionName="center" x="240" y="120" height="480" weight="380" />
 	<control type="role" positionName="left" x="100" y="120" height="480" weight="380" />
 	<control type="role" positionName="right" x="540" y="120" height="480" weight="380" />
-	<control type="textBox" x="0" y="333" height="267" width="800" textX="15" textY="15" isMain="true" alpha="0.9" src="image/边框.PNG"/>
+	<control type="textBox" x="0" y="480" height="120" width="800" textX="15" textY="15" isMain="true" alpha="0.9" src="image/textbox2.JPG"/>
 	<control type="click_gif" x="750" y="550" height="32" width="40" src="image/99.gif"/>
 </UI>
