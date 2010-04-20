@@ -3,7 +3,7 @@ package AGE.UI.factory
 	import AGE.UI.control.Role;
 	
 	/**
-	 * 规则工厂
+	 * Role工厂
 	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class RoleFactory

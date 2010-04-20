@@ -3,7 +3,7 @@ package AGE.UI.factory
 	import AGE.UI.control.TextBox;
 	
 	/**
-	 * 文本框工厂
+	 * TextBox工厂
 	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class TextBoxFactory
