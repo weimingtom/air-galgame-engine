@@ -1,15 +1,15 @@
-package AGE.evaluator
+ï»¿package AGE.evaluator
 {
 	import mx.collections.ArrayCollection;
 
 	/**
-	* ±äÁ¿´øÈë
-	* @author Áõ·å
+	* å˜é‡å¸¦å…¥
+	* @author åˆ˜å³°
 	*/
 	public class VariableExchanger
 	{
 		/**
-		* ±äÁ¿¼¯ºÏ
+		* å˜é‡é›†åˆ
 		*/
 		public static var variableTable:ArrayCollection=new ArrayCollection();
 		
@@ -18,9 +18,9 @@ package AGE.evaluator
 		}
 		
 		/**
-		* ÔÚ±í´ïÊ½ÖĞ´øÈë±äÁ¿¡£
-		* @param exp ĞèÒª´øÈë±äÁ¿µÄÂß¼­±í´ïÊ½£¬ÀıÈç£º"(_a>2)&&false"¡£
-		* @return ´øÈë±äÁ¿ÖµÖ®ºóµÄ±í´ïÊ½¡£
+		* åœ¨è¡¨è¾¾å¼ä¸­å¸¦å…¥å˜é‡ã€‚
+		* @param exp éœ€è¦å¸¦å…¥å˜é‡çš„é€»è¾‘è¡¨è¾¾å¼ï¼Œä¾‹å¦‚ï¼š"(_a>2)&&false"ã€‚
+		* @return å¸¦å…¥å˜é‡å€¼ä¹‹åçš„è¡¨è¾¾å¼ã€‚
 		*/
 		public static function exchange(exp:String):String{
 			for(var i:int=0;i<=variableTable.length-1;i++){
