@@ -6,7 +6,7 @@ package AGE.event
 	
 	/**
 	 * 添加文本框控件事件
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class AddTextBoxEvent extends Event
 	{

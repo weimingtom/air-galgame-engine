@@ -6,7 +6,7 @@ package AGE.event
 	
 	/**
 	 * 添加控件事件的基类
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class AddControlEvent extends Event
 	{

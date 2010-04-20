@@ -12,7 +12,7 @@ package AGE.UI.management
 	
 	/**
 	 * 用户界面管理类
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class UImanagement
 	{

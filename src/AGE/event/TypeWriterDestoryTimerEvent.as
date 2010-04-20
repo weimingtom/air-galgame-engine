@@ -4,7 +4,7 @@ package AGE.event
 	
 	/**
 	 * 打字机销毁计时器事件
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class TypeWriterDestoryTimerEvent extends Event
 	{

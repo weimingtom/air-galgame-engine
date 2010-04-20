@@ -4,7 +4,7 @@ package AGE.UI.factory
 	
 	/**
 	 * 规则工厂
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class RoleFactory
 	{
