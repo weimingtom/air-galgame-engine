@@ -8,6 +8,10 @@ package AGE.io
 	import mx.collections.ArrayCollection;
 	import mx.rpc.xml.SimpleXMLDecoder;
 	
+	/**
+	* XML文件读取类
+	* @author 刘峰
+	*/
 	public class XMLReader
 	{
 		public function XMLReader()

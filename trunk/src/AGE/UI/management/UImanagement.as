@@ -10,15 +10,30 @@ package AGE.UI.management
 	
 	import spark.components.WindowedApplication;
 	
+	/**
+	* 用户界面管理类
+	* @author 刘峰
+	*/
 	public class UImanagement
 	{
+		/**
+		* 
+		*/
 		public var main:WindowedApplication;
 		
+		/**
+		* 
+		* @param main 
+		*/
 		public function UImanagement(main:WindowedApplication)
 		{
 			this.main=main;
 		}
 		
+		/**
+		* 
+		* @param UIArray 
+		*/
 		public function buildUI(UIArray:ArrayCollection):void{
 			var tempUIcontrol:Object=new Object();
 //			var control:Object=new Object();
