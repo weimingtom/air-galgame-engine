@@ -2,10 +2,19 @@ package AGE.UI.factory
 {
 	import AGE.UI.control.TextBox;
 
-
+	/**
+	* 文本框工厂
+	* @author 刘峰
+	*/
 	public class TextBoxFactory
 	{
 		
+		/**
+		 * 产生TextBox的实例
+		 * @see AGE.UI.control.TextBox
+		 * @param template 模板
+		 * @return TextBox
+		 */
 		public static function manufacture(template:Object):TextBox{
 			var product:TextBox=new TextBox();
 			product.x=new Number(template.x);

@@ -2,12 +2,21 @@ package AGE.evaluator
 {
 	import mx.collections.ArrayCollection;
 
+	/**
+	* 检查表达式是否合法。
+	* @author 刘峰
+	*/
 	public class CheckEvaluator
 	{
 		public function CheckEvaluator()
 		{
 		}
 		
+		/**
+		* 检查表达式是否合法。
+		* @param exp 逻辑表达式，例如："(_a>2)&&false"。
+		* @return 如果表达式合法返回True，否则返回False。
+		*/
 		public static function check(exp:String):Boolean{
 			var expx:String=exp.toLowerCase();
 			var charArray:ArrayCollection=new ArrayCollection();

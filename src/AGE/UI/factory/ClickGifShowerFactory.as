@@ -2,8 +2,19 @@ package AGE.UI.factory
 {
 	import AGE.UI.control.ClickGifShower;
 	
+	/**
+	* 点击GIF显示工厂
+	* @author 刘峰
+	*/
 	public class ClickGifShowerFactory
 	{
+	
+		/**
+		 * 产生ClickGifShower的实例
+		 * @see AGE.UI.control.ClickGifShower
+		 * @param template 模板
+		 * @return ClickGifShower
+		 */
 		public static function manufacture(template:Object):ClickGifShower{
 			var product:ClickGifShower=new ClickGifShower();
 			product.x=new Number(template.x);

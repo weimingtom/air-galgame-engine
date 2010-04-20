@@ -11,14 +11,34 @@ package AGE.text
 	import spark.components.RichText;
 	import spark.components.WindowedApplication;
 
+	/**
+	* 打字机类
+	* @author 刘峰
+	*/
 	public class TypeWriter
 	{
 		private static var timerList:Dictionary = new Dictionary();
+		/**
+		* 
+		*/
 		public static var inTextField:RichText;
+		/**
+		* 
+		*/
 		public static var isTypeing:Boolean=false;
+		/**
+		* 
+		*/
 		public static var main:WindowedApplication;
+		
 /****************Static函数****************/
-		//为某段String在某个TextField上实现打字机效果，以xx毫秒为间隔
+
+		/**
+		* 为某段String在某个TextField上实现打字机效果，以xx毫秒为间隔
+		* @param inString 
+		* @param inDelay 
+		* @return 
+		*/
 		public static function type (inString,inDelay)
 		{
 			//如果时间间隔为0，则直接显示字符串，并且返回
@@ -41,8 +61,11 @@ package AGE.text
 			timer.start ();
 			isTypeing=true;
 		}
-		//去掉监听，销毁timer，立即显示全部文字
-		//参数：textField
+		
+		/**
+		 * 去掉监听，销毁timer，立即显示全部文字
+		 * 参数：textField
+		 */
 		public static function update ()
 		{
 			var timer = null;
@@ -67,7 +90,10 @@ package AGE.text
 			TypeWriter._destoryTimer (timer);
 			return true;
 		}
-		//每当定时器到时间后，执行这个函数
+		
+		/**
+		 * 每当定时器到时间后，执行这个函数
+		 */
 		private static function _onTimeUp (event:TimerEvent)
 		{
 			var tempItem = timerList[event.target];
@@ -84,7 +110,10 @@ package AGE.text
 			tempItem.tf.text+= (tempItem.str.charAt(tempItem.index));
 			tempItem.index = tempItem.index + 1;
 		}
-		//去掉监听，销毁timer
+		
+		/**
+		 * 去掉监听，销毁timer
+		 */
 		private static function _destoryTimer (timer)
 		{
 			timer.removeEventListener ("timer",_onTimeUp);
