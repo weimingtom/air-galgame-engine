@@ -1,18 +1,18 @@
 package AGE.UI.factory
 {
 	import AGE.UI.control.TextBox;
-
+	
 	/**
-	* ÎÄ±¾¿ò¹¤³§
-	* @author Áõ·å
-	*/
+	 * æ–‡æœ¬æ¡†å·¥å‚
+	 * @author åˆ˜å³°
+	 */
 	public class TextBoxFactory
 	{
 		
 		/**
-		 * ²úÉúTextBoxµÄÊµÀı
+		 * äº§ç”ŸTextBoxçš„å®ä¾‹
 		 * @see AGE.UI.control.TextBox
-		 * @param template Ä£°å
+		 * @param template æ¨¡æ¿
 		 * @return TextBox
 		 */
 		public static function manufacture(template:Object):TextBox{

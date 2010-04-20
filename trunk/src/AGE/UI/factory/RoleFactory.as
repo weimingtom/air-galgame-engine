@@ -3,9 +3,9 @@ package AGE.UI.factory
 	import AGE.UI.control.Role;
 	
 	/**
-	* ¹æÔò¹¤³§
-	* @author Áõ·å
-	*/
+	 * è§„åˆ™å·¥å‚
+	 * @author åˆ˜å³°
+	 */
 	public class RoleFactory
 	{
 		public function RoleFactory()
@@ -13,9 +13,9 @@ package AGE.UI.factory
 		}
 		
 		/**
-		 * ²úÉúRoleµÄÊµÀı
+		 * äº§ç”ŸRoleçš„å®ä¾‹
 		 * @see AGE.UI.control.Role
-		 * @param template Ä£°å
+		 * @param template æ¨¡æ¿
 		 * @return Role
 		 */
 		public static function manufacture(template:Object):Role{
