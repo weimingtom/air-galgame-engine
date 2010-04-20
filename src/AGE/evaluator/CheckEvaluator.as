@@ -1,10 +1,10 @@
-package AGE.evaluator
+ï»¿package AGE.evaluator
 {
 	import mx.collections.ArrayCollection;
 
 	/**
-	* ¼ì²é±í´ïÊ½ÊÇ·ñºÏ·¨¡£
-	* @author Áõ·å
+	* æ£€æŸ¥è¡¨è¾¾å¼æ˜¯å¦åˆæ³•ã€‚
+	* @author åˆ˜å³°
 	*/
 	public class CheckEvaluator
 	{
@@ -13,9 +13,9 @@ package AGE.evaluator
 		}
 		
 		/**
-		* ¼ì²é±í´ïÊ½ÊÇ·ñºÏ·¨¡£
-		* @param exp Âß¼­±í´ïÊ½£¬ÀıÈç£º"(_a>2)&&false"¡£
-		* @return Èç¹û±í´ïÊ½ºÏ·¨·µ»ØTrue£¬·ñÔò·µ»ØFalse¡£
+		* æ£€æŸ¥è¡¨è¾¾å¼æ˜¯å¦åˆæ³•ã€‚
+		* @param exp é€»è¾‘è¡¨è¾¾å¼ï¼Œä¾‹å¦‚ï¼š"(_a>2)&&false"ã€‚
+		* @return å¦‚æœè¡¨è¾¾å¼åˆæ³•è¿”å›Trueï¼Œå¦åˆ™è¿”å›Falseã€‚
 		*/
 		public static function check(exp:String):Boolean{
 			var expx:String=exp.toLowerCase();
