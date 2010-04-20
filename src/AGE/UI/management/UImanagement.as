@@ -11,32 +11,32 @@ package AGE.UI.management
 	import spark.components.WindowedApplication;
 	
 	/**
-	* ÓÃ»§½çÃæ¹ÜÀíÀà
-	* @author Áõ·å
-	*/
+	 * ç”¨æˆ·ç•Œé¢ç®¡ç†ç±»
+	 * @author åˆ˜å³°
+	 */
 	public class UImanagement
 	{
 		/**
-		* 
-		*/
+		 * 
+		 */
 		public var main:WindowedApplication;
 		
 		/**
-		* 
-		* @param main 
-		*/
+		 * 
+		 * @param main 
+		 */
 		public function UImanagement(main:WindowedApplication)
 		{
 			this.main=main;
 		}
 		
 		/**
-		* 
-		* @param UIArray 
-		*/
+		 * 
+		 * @param UIArray 
+		 */
 		public function buildUI(UIArray:ArrayCollection):void{
 			var tempUIcontrol:Object=new Object();
-//			var control:Object=new Object();
+			//			var control:Object=new Object();
 			for(var i:int=0;i<=UIArray.length-1;i++){
 				tempUIcontrol=UIArray.getItemAt(i);
 				var control:Object=new Object();

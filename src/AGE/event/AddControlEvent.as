@@ -5,25 +5,25 @@ package AGE.event
 	import AGE.UI.control.TextBox;
 	
 	/**
-	* Ìí¼Ó¿Ø¼şÊÂ¼şµÄ»ùÀà
-	* @author Áõ·å
-	*/
+	 * æ·»åŠ æ§ä»¶äº‹ä»¶çš„åŸºç±»
+	 * @author åˆ˜å³°
+	 */
 	public class AddControlEvent extends Event
 	{
 		/**
-		* 
-		*/
+		 * 
+		 */
 		static public const ADDTEXTBOX:String="addtextbox";
 		/**
-		* 
-		*/
+		 * 
+		 */
 		public var control:Object;
 		/**
-		* Ìí¼Ó¿Ø¼ş´¥·¢ÊÂ¼ş
-		* @param control
-		* @param bubbles @see flash.events.Event.bubbles
-		* @param cancelable @see flash.events.Event.cancelable
-		*/
+		 * æ·»åŠ æ§ä»¶è§¦å‘äº‹ä»¶
+		 * @param control
+		 * @param bubbles @see flash.events.Event.bubbles
+		 * @param cancelable @see flash.events.Event.cancelable
+		 */
 		public function AddControlEvent(control:Object, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(ADDTEXTBOX, bubbles, cancelable);

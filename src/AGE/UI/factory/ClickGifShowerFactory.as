@@ -3,16 +3,16 @@ package AGE.UI.factory
 	import AGE.UI.control.ClickGifShower;
 	
 	/**
-	* µã»÷GIFÏÔÊ¾¹¤³§
-	* @author Áõ·å
-	*/
+	 * ç‚¹å‡»GIFæ˜¾ç¤ºå·¥å‚
+	 * @author åˆ˜å³°
+	 */
 	public class ClickGifShowerFactory
 	{
-	
+		
 		/**
-		 * ²úÉúClickGifShowerµÄÊµÀı
+		 * äº§ç”ŸClickGifShowerçš„å®ä¾‹
 		 * @see AGE.UI.control.ClickGifShower
-		 * @param template Ä£°å
+		 * @param template æ¨¡æ¿
 		 * @return ClickGifShower
 		 */
 		public static function manufacture(template:Object):ClickGifShower{

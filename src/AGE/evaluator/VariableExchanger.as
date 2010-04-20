@@ -4,7 +4,7 @@
 
 	/**
 	* 变量带入
-	* @author 刘峰
+	* @author 银鸑鷟(SliverPhoenix)
 	*/
 	public class VariableExchanger
 	{

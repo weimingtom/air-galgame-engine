@@ -2,11 +2,11 @@ package AGE.music
 {
 	import flash.media.Sound;
 	import flash.net.URLRequest;
-
+	
 	/**
-	* ÒôÀÖ²¥·ÅÆ÷Àà
-	* @author Áõ·å
-	*/
+	 * éŸ³ä¹æ’­æ”¾å™¨ç±»
+	 * @author åˆ˜å³°
+	 */
 	public class MusicPlayer
 	{
 		private var bgmplayer:Sound=new Sound();
@@ -16,8 +16,8 @@ package AGE.music
 		}
 		
 		/**
-		 * ²¥·Å±³¾°ÒôÀÖ
-		 * @param src ÒôÀÖÎÄ¼şURL
+		 * æ’­æ”¾èƒŒæ™¯éŸ³ä¹
+		 * @param src éŸ³ä¹æ–‡ä»¶URL
 		 */
 		public function bgmPlay(src:String){
 			bgmRequest=new URLRequest(src);
