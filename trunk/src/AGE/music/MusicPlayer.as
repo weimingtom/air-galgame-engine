@@ -5,7 +5,7 @@ package AGE.music
 	
 	/**
 	 * 音乐播放器类
-	 * @author 刘峰
+	 * @author 银鸑鷟(SliverPhoenix)
 	 */
 	public class MusicPlayer
 	{
