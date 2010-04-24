@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _0424_1.Properties
+namespace AGE_IDE.Properties
 {
 
 

@@ -1,8 +1,0 @@
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\bin\Debug\0424-1.exe
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\bin\Debug\0424-1.pdb
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\ResolveAssemblyReference.cache
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\_0424_1.mainform.resources
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\_0424_1.Properties.Resources.resources
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\0424-1.csproj.GenerateResource.Cache
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\0424-1.exe
-D:\ltx\新程序开始\ltxsvn\IDE\0424-1\0424-1\obj\Debug\0424-1.pdb
