@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace _0424_1
+namespace AGE_IDE
 {
-    public partial class mainform : Form
+    public partial class mainForm : Form
     {
-        public mainform()
+        public mainForm()
         {
             InitializeComponent();
         }
+
     }
 }
