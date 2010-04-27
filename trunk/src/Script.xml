@@ -18,7 +18,7 @@
 	<action id="0005" type="text">阳光持续地直晒着我毫无遮掩的脖子。</action>
 	<action id="0006" type="text">我缓缓地睁开双眼。</action>
 	<action id="0007" type="text">在我眼前所展开的，是一片从未见过的土地的夏日光景。</action>	
-	<action type="if" test="(_a>2)&&false">
+	<action type="if" test="(_a>2)||true">
 		<ramus type="do">
 			<action id="0008" type="page_turning" />
 			<action id="0007" type="text">分支：条件为真</action>
@@ -28,6 +28,25 @@
 			<action id="0008" type="page_turning" />
 			<action id="0007" type="text">分支：条件为假</action>
 			<action type="return"/>
+		</ramus>
+	</action>
+	<action type="chooseSwitch" val="_switch1">
+		<button label="选择1" value="1"/>
+		<button label="选择2" value="2"/>
+		<button label="选择3" value="3"/>
+	</action>
+	<action type="switch" val="_switch1">
+		<ramus type="1">
+			<action type="text">您选择的选项是选择1</action>
+			<action type="return" />
+		</ramus>
+		<ramus type="2">
+			<action type="text">您选择的选项是选择2</action>
+			<action type="return" />
+		</ramus>
+		<ramus type="3">
+			<action type="text">您选择的选项是选择3</action>
+			<action type="return" />
 		</ramus>
 	</action>
 	<action type="script_end" />			

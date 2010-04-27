@@ -1,4 +1,5 @@
 <VariableTable>
 	<variable key="_a" value="1" />
 	<variable key="_b" value="2" />
+	<variable key="_switch1" value="0" />
 </VariableTable>

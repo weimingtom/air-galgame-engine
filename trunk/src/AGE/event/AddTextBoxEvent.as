@@ -13,7 +13,7 @@ package AGE.event
 		/**
 		 * 
 		 */
-		static public const ADDTEXTBOX:String="addtextbox";
+		static public const ADD_TEXTBOX:String="addtextbox";
 		/**
 		 * 
 		 */
@@ -26,7 +26,7 @@ package AGE.event
 		 */
 		public function AddTextBoxEvent(textBox:Object, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
-			super(ADDTEXTBOX, bubbles, cancelable);
+			super(ADD_TEXTBOX, bubbles, cancelable);
 			this.textBox=textBox as TextBox;
 		}
 	}

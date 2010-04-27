@@ -13,7 +13,7 @@ package AGE.event
 		/**
 		 * 
 		 */
-		static public const SETMAINTEXTBOX:String = "setmaintextbox";
+		static public const SET_MAIN_TEXTBOX:String = "setmaintextbox";
 		/**
 		 * 
 		 */
@@ -27,7 +27,7 @@ package AGE.event
 		 */
 		public function SetMainTextBoxEvent(mainTextBox:TextBox, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
-			super(SETMAINTEXTBOX, bubbles, cancelable);
+			super(SET_MAIN_TEXTBOX, bubbles, cancelable);
 			this.mainTextBox=mainTextBox;
 		}
 	}

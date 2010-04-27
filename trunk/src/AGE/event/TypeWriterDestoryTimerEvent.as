@@ -11,7 +11,7 @@ package AGE.event
 		/**
 		 * 
 		 */
-		static public const DESTORYTIMER:String="destorytimer";
+		static public const DESTORY_TIMER:String="destorytimer";
 		/**
 		 * 
 		 * @param bubbles @see flash.events.Event.bubbles
@@ -19,7 +19,7 @@ package AGE.event
 		 */
 		public function TypeWriterDestoryTimerEvent(bubbles:Boolean=false, cancelable:Boolean=false)
 		{
-			super(DESTORYTIMER, bubbles, cancelable);
+			super(DESTORY_TIMER, bubbles, cancelable);
 		}
 	}
 }
