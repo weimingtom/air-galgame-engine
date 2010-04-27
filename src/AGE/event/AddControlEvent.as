@@ -13,7 +13,7 @@ package AGE.event
 		/**
 		 * 
 		 */
-		static public const ADDTEXTBOX:String="addtextbox";
+		static public const ADD_CONTROL:String="addcontrol";
 		/**
 		 * 
 		 */
@@ -26,7 +26,7 @@ package AGE.event
 		 */
 		public function AddControlEvent(control:Object, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
-			super(ADDTEXTBOX, bubbles, cancelable);
+			super(ADD_CONTROL, bubbles, cancelable);
 			this.control=control;
 		}
 	}

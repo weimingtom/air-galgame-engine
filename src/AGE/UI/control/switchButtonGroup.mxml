@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400">
+	<fx:Script>
+		<![CDATA[
+			import AGE.UI.control.switchDefaultButton;
+			import AGE.event.EvaluateValueToVariableEvent;
+			
+			import mx.collections.ArrayCollection;
+			import mx.managers.PopUpManager;
+			private var _dataProvder:ArrayCollection=new ArrayCollection();
+			private var _val:String="";
+
+			public function get val():String
+			{
+				return _val;
+			}
+
+			public function set val(value:String):void
+			{
+				_val = value;
+			}
+
+			public function get dataProvder():ArrayCollection
+			{
+				return _dataProvder;
+			}
+
+			public function set dataProvder(value:ArrayCollection):void
+			{
+				_dataProvder = value;
+				var button:switchDefaultButton;
+				for(var i:int=0;i<=value.length-1;i++){
+					button=new switchDefaultButton();
+					button.label=value.getItemAt(i).label;
+					button.data=value.getItemAt(i);
+					button.addEventListener(MouseEvent.CLICK,button_ClickHandler);
+					this.addElement(button);
+				}
+			}
+			
+			protected function button_ClickHandler(event:MouseEvent):void{
+				this.dispatchEvent(new EvaluateValueToVariableEvent(new Number(event.target.data.value),_val))
+				PopUpManager.removePopUp(this);
+			}
+
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="contentJustify" gap="10" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+</s:Group>

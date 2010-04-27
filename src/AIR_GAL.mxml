@@ -5,6 +5,7 @@
 		<![CDATA[
 			import AGE.UI.control.ClickGifShower;
 			import AGE.UI.control.Role;
+			import AGE.UI.control.switchButtonGroup;
 			import AGE.UI.management.UImanagement;
 			import AGE.evaluator.*;
 			import AGE.event.*;
@@ -16,10 +17,10 @@
 			import mx.core.IVisualElement;
 			import mx.events.FlexEvent;
 			import mx.events.MenuEvent;
+			import mx.managers.PopUpManager;
 			import mx.rpc.xml.SimpleXMLDecoder;
 			
 			import spark.components.RichText;
-			
  			
 			public var actionId:int=0;
 			
@@ -69,6 +70,8 @@
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				this.addEventListener(MouseEvent.RIGHT_CLICK,windowedapplication1_rightClickHandler);
+				this.setStyle("modalTransparency",0);
+				this.setStyle("modalTransparencyBlur",0);
 			}
 			/**
 			 * 主脚本动作流执行器
@@ -100,8 +103,8 @@
 						break;
 					case "role_change":
 						var role:Role;
-						for(var i:int=0;i<=RoleList.length-1;i++){
-							role=RoleList.getItemAt(i) as Role;
+						for(var roleChangeCounter:int=0;roleChangeCounter<=RoleList.length-1;roleChangeCounter++){
+							role=RoleList.getItemAt(roleChangeCounter) as Role;
 							if(role.position==action.position){
 								if(action.src!=""){
 									fadeOut.play([role]);
@@ -110,7 +113,6 @@
 								} else {
 									fadeOut.play([role]);
 								}
-								
 								break;
 							}
 						}
@@ -131,46 +133,60 @@
 						return true;
 						break;
 					case "evaluate":
-						for(var j:int=0;j<=variableTable.length-1;i++){
-							if(variableTable.getItemAt(j).key==action.key){
-								var exp:String=VariableExchanger.exchange(action.value);
-								if(CheckEvaluator.check(exp)){
-									variableTable.getItemAt(j).value=eval(exp);
-								}
-								
-								break;
-							}
-						}
+						EvaluateValueToVariable(action.key,action.value);
 						break;
 					case "if":
 						var exp:String=action.test;
 						exp=VariableExchanger.exchange(exp);
 						var result:Boolean;
-						if(CheckEvaluator.check(exp)){
+//						if(CheckEvaluator.check(exp)){
 							result=eval(exp);
-						}
+//						}
 						if(result){
 							interruptActionPool=action.ramus.getItemAt(0).action;
-							interruptDoAction();
+							this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 							return true;
 						} else {
 							interruptActionPool=action.ramus.getItemAt(1).action;
-							interruptDoAction();
+							this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 							return true;
 						}
 						break;
+					case "chooseSwitch":
+						var switchGroup:switchButtonGroup=new switchButtonGroup();
+						switchGroup.dataProvder=action.button;
+						switchGroup.val=action.val;
+						switchGroup.addEventListener(EvaluateValueToVariableEvent.EVALUATE_VALUE_TO_VARIABLE,ChooseSwitch_EvaluateValueToVariableHandler);
+						PopUpManager.addPopUp(switchGroup,this,true);
+						PopUpManager.centerPopUp(switchGroup);
+						return true;
+						break;
+					case "switch":
+						var VarValue:Number=getVariableValue(action.val)
+						for(var switchCounter:int=0;switchCounter<=action.ramus.length-1;switchCounter++){
+							if(VarValue==new Number(action.ramus.getItemAt(switchCounter).type)){
+								interruptActionPool=action.ramus.getItemAt(switchCounter).action;
+								this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+								return true;
+								break;
+							}
+						}
+						break;
 					case "return":
-						interruptActionPool=new ArrayCollection();
-						interruptActionID=0;
-						doAction();
-						return false;							
+						interruptDoAction(true);
+						return false;
 				}
 				return false;
 			}
 			/**
 			 * 中断脚本动作流执行器
 			 */			
-			protected function interruptDoAction():void{
+			protected function interruptDoAction(close:Boolean=false):void{
+				if(close==true){
+					interruptActionPool=new ArrayCollection();
+					interruptActionID=0;
+					return;	
+				}
 				var isStop:Boolean=false
 				try{
 					while(!isStop){
@@ -180,10 +196,43 @@
 				} catch (e:RangeError){
 					interruptActionPool=new ArrayCollection();
 					interruptActionID=0;
-					doAction();
+					this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
 					return;	
 				} 
 				
+			}
+			/**
+			 * 处理选择肢变量赋值事件
+			 **/ 
+			protected function ChooseSwitch_EvaluateValueToVariableHandler(event:EvaluateValueToVariableEvent):void{
+				EvaluateValueToVariable(event.val,event.value);
+				this.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+			}
+			
+			/**
+			 * 给用户自定义的变量赋值
+			 * @param val 变量名
+			 * @param value 所要赋值的数值或者是所要计算的表达式
+			 **/ 
+			protected function EvaluateValueToVariable(val:String,value:*):void{
+				for(var j:int=0;j<=variableTable.length-1;j++){
+					if(variableTable.getItemAt(j).key==val){
+						var exp:String=VariableExchanger.exchange(value);
+						if(CheckEvaluator.check(exp)){
+							variableTable.getItemAt(j).value=eval(exp);
+						}
+						break;
+					}
+				}				
+			}
+			
+			protected function getVariableValue(val:String):Number{
+				for(var i:int=0;i<=variableTable.length-1;i++){
+					if(variableTable.getItemAt(i).key==val){
+						return variableTable.getItemAt(i).value;
+					}
+				}
+				return int.MIN_VALUE;
 			}
 			
 			protected function eval(exp:String){
@@ -215,9 +264,9 @@
 
 			protected function windowedapplication1_preinitializeHandler(event:FlexEvent):void
 			{
-				this.addEventListener(SetMainTextBoxEvent.SETMAINTEXTBOX,app_setMainTextBoxHandler);
-				this.addEventListener(AddControlEvent.ADDTEXTBOX,app_addControlHandler);
-				this.addEventListener(TypeWriterDestoryTimerEvent.DESTORYTIMER,app_TypeEndHandler);
+				this.addEventListener(SetMainTextBoxEvent.SET_MAIN_TEXTBOX,app_setMainTextBoxHandler);
+				this.addEventListener(AddControlEvent.ADD_CONTROL,app_addControlHandler);
+				this.addEventListener(TypeWriterDestoryTimerEvent.DESTORY_TIMER,app_TypeEndHandler);
 
 			}
 			
